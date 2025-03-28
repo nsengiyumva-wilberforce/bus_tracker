@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('profile_picture')->nullable();
-            $table->json('preferences')->default(json_encode([]));
+            $table->json('preferences')->nullable();
             $table->timestamps();
         });
 

@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->foreignId('starting_station_id')->nullable()->constrained('bus_stops');
             $table->foreignId('ending_station_id')->nullable()->constrained('bus_stops');
-            $table->json('timetable')->default(json_encode([]));
+            $table->json('timetable')->nullable();
             $table->timestamps();
         });
     }
