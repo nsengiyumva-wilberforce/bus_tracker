@@ -21,6 +21,11 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function profile()
+    {
+        return view('pages.profile');
+    }
+
     /**
      * Update the user's profile information.
      */
