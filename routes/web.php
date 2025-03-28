@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Bus;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {

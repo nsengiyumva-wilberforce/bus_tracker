@@ -116,9 +116,14 @@
                        </ul>
                    </li>
                    <li class="nav-item d-flex align-items-center">
-                       <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
-                           <i class="material-symbols-rounded">account_circle</i>
-                       </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    <a class="nav-link text-dark" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="material-symbols-rounded opacity-5">logout</i>
+                        <span class="nav-link-text ms-1">Logout</span>
+                    </a>
                    </li>
                </ul>
            </div>
