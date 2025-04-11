@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bus;
 use Illuminate\Http\Request;
 
 class TrackingController extends Controller
@@ -12,8 +13,10 @@ class TrackingController extends Controller
      */
     public function index()
     {
-        return view('pages.tracking');
+        $buses = Bus::with('route', 'route.startingStation', 'route.endingStation')->get();  // Ensure to get the buses and their routes
+        return view('pages.tracking', compact('buses'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
