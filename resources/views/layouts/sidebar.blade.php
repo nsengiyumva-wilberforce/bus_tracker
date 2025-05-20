@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+                <a class="nav-link {{ Request::is('dashboard') ? 'active bg-primary text-white' : 'text-dark' }}"
                     href="/dashboard">
                     <i class="material-symbols-rounded opacity-5">dashboard</i>
                     <span class="nav-link-text ms-1">Dashboard</span>
@@ -21,73 +21,56 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('buses') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-                    href="/buses">
-                    <i class="material-symbols-rounded opacity-5">table_view</i>
-                    <span class="nav-link-text ms-1">Bus Management</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('bus-stops') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+                <a class="nav-link {{ Request::is('bus-stops') ? 'active bg-primary text-white' : 'text-dark' }}"
                     href="/bus-stops">
                     <i class="material-symbols-rounded opacity-5">table_view</i>
                     <span class="nav-link-text ms-1">Bus Stops</span>
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('routes') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+                <a class="nav-link {{ Request::is('routes') ? 'active bg-primary text-white' : 'text-dark' }}"
                     href="/routes">
                     <i class="material-symbols-rounded opacity-5">table_view</i>
                     <span class="nav-link-text ms-1">Routes and Schedules</span>
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('tracking') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+                <a class="nav-link {{ Request::is('buses') ? 'active bg-primary text-white' : 'text-dark' }}"
+                    href="/buses">
+                    <i class="material-symbols-rounded opacity-5">table_view</i>
+                    <span class="nav-link-text ms-1">Bus Management</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('tracking') ? 'active bg-primary text-white' : 'text-dark' }}"
                     href="/tracking">
                     <i class="material-symbols-rounded opacity-5">table_view</i>
                     <span class="nav-link-text ms-1">Live Tracking</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('drivers') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-                    href="/drivers">
+                <a class="nav-link {{ Request::is('admins') ? 'active bg-primary text-white' : 'text-dark' }}"
+                    href="/admins">
                     <i class="material-symbols-rounded opacity-5">table_view</i>
                     <span class="nav-link-text ms-1">Drivers & Staff</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('tickets') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-                    href="/tickets">
-                    <i class="material-symbols-rounded opacity-5">table_view</i>
-                    <span class="nav-link-text ms-1">Ticket Management</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('passengers') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+                <a class="nav-link {{ Request::is('passengers') ? 'active bg-primary text-white' : 'text-dark' }}"
                     href="/passengers">
                     <i class="material-symbols-rounded opacity-5">table_view</i>
                     <span class="nav-link-text ms-1">Passenger Management</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('reports') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+                <a class="nav-link {{ Request::is('reports') ? 'active bg-primary text-white' : 'text-dark' }}"
                     href="/reports">
                     <i class="material-symbols-rounded opacity-5">table_view</i>
                     <span class="nav-link-text ms-1">Reports & Analytics</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('maintenances') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-                    href="/maintenances">
-                    <i class="material-symbols-rounded opacity-5">table_view</i>
-                    <span class="nav-link-text ms-1">Maintenance & Fuel Management</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('users') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-                    href="/users">
-                    <i class="material-symbols-rounded opacity-5">table_view</i>
-                    <span class="nav-link-text ms-1">User Roles & Permissions</span>
                 </a>
             </li>
             <li class="nav-item mt-3">

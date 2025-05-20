@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusStop;
+use App\Models\Route;
 use Illuminate\Http\Request;
 
 class BusStopController extends Controller
@@ -86,6 +87,17 @@ class BusStopController extends Controller
     public function destroy(string $id)
     {
         $busStop = BusStop::findOrFail($id);
+
+        // Check if this bus stop is used in any route as a starting or ending station
+        $isUsedInRoute = Route::where('starting_station_id', $id)
+            ->orWhere('ending_station_id', $id)
+            ->exists();
+
+        if ($isUsedInRoute) {
+            return redirect()->route('bus-stops.index')
+                ->with('error', 'Cannot delete this bus stop. It is being used in a route.');
+        }
+
         $busStop->delete();
 
         return redirect()->route('bus-stops.index')

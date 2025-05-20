@@ -50,4 +50,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserRoutePreferences::class);
     }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
+    public function getProfilePictureUrlAttribute()
+    {
+        return $this->profile_picture
+            ? asset('storage/' . $this->profile_picture)
+            : asset('assets/img/default-avatar.jfif');
+    }
 }

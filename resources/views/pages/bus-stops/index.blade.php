@@ -9,12 +9,21 @@
                             <i class="fas fa-plus me-2"></i>Add New Bus Stop
                         </a>
                     </div>
-                    
+
                     <div class="card-body">
-                        @if(session('success'))
+                        @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
                         @endif
 
@@ -34,10 +43,10 @@
                                             <td class="fw-semibold">{{ $busStop->name }}</td>
                                             <td>{{ $busStop->location }}</td>
                                             <td>
-                                                @if($busStop->latitude && $busStop->longitude)
+                                                @if ($busStop->latitude && $busStop->longitude)
                                                     <span class="badge bg-info">
                                                         <i class="fas fa-map-marker-alt me-2"></i>
-                                                        {{ number_format($busStop->latitude, 6) }}, 
+                                                        {{ number_format($busStop->latitude, 6) }},
                                                         {{ number_format($busStop->longitude, 6) }}
                                                     </span>
                                                 @else
@@ -46,20 +55,18 @@
                                             </td>
                                             <td class="text-end">
                                                 <div class="d-inline-flex gap-2">
-                                                    <a href="{{ route('bus-stops.edit', $busStop->id) }}" 
-                                                       class="btn btn-sm btn-outline-primary"
-                                                       title="Edit">
+                                                    <a href="{{ route('bus-stops.edit', $busStop->id) }}"
+                                                        class="btn btn-sm btn-outline-primary" title="Edit">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form method="POST" 
-                                                          action="{{ route('bus-stops.destroy', $busStop->id) }}"
-                                                          class="d-inline">
+                                                    <form method="POST"
+                                                        action="{{ route('bus-stops.destroy', $busStop->id) }}"
+                                                        class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" 
-                                                                class="btn btn-sm btn-outline-danger"
-                                                                onclick="return confirm('Are you sure you want to delete this bus stop?')"
-                                                                title="Delete">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                            onclick="return confirm('Are you sure you want to delete this bus stop?')"
+                                                            title="Delete">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </form>
@@ -71,7 +78,7 @@
                             </table>
                         </div>
 
-                        @if($busStops->hasPages())
+                        @if ($busStops->hasPages())
                             <div class="mt-4">
                                 {{ $busStops->links() }}
                             </div>

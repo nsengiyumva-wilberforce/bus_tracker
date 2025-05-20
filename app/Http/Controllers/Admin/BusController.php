@@ -55,7 +55,8 @@ class BusController extends Controller
      */
     public function show(string $id)
     {
-        $bus = Bus::findOrFail($id);
+        $bus = Bus::with('route.startingStation', 'route.endingStation')->findOrFail($id);
+        dd($bus->toarray());
         return view('pages.bus.show', compact('bus'));
     }
 

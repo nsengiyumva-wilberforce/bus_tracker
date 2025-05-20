@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PassengerController extends Controller
@@ -12,7 +13,8 @@ class PassengerController extends Controller
      */
     public function index()
     {
-        return view('pages.passenger');
+        $clients = User::paginate();
+        return view('pages.passenger', compact('clients'));
     }
 
     /**
