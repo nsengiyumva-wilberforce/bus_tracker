@@ -21,8 +21,11 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('profile_picture')->nullable();
             $table->json('preferences')->nullable();
+            $table->timestamp('email_verified_at')->nullable();  // Add this line
+            $table->rememberToken();                            // Add this line
             $table->timestamps();
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

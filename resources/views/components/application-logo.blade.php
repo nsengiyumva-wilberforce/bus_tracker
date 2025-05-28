@@ -1,2 +1,1 @@
-<img src="/assets/img/logos/bus_tracker.jpeg" class="navbar-brand-img" width="100" height="100"
-alt="main_logo">
+<img src="{{asset('images/logo1.png')}}" class="w-80 h-40" alt="BusPulse Logo">

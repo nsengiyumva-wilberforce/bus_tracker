@@ -1,0 +1,128 @@
+/* General Styles */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #F8F9FA;
+}
+
+/* Navigation */
+nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #007BFF;
+	padding: 15px 20px;
+	color: white;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+.logo img {
+	height: 85px;
+	margin-right: 10px;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+}
+
+nav ul li {	margin: 0 15px; }
+
+nav  ul li a {
+	text-decoration: none;
+	color: white;
+	transition: 0.3s;
+}
+
+nav ul li a:hover {	color: #28A745; }
+
+/* Hero section  */
+.hero{
+	text-align: center;
+	background: linear-gradient(blue, lightgreen);
+	color: white;
+	padding: 50px 20px;
+}
+
+.hero h1 { font-size:2.5em; }
+.hero img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero btn {
+	background: white;
+	color: blue;
+	padding: 10px 20px;
+	text-decoration: none;
+	font-size: 1.2em;
+	border-radius: 5px;
+}
+
+header {
+	text-align: center;
+	padding: 50px;
+	background: linear-gradient(135deg, #007BFF, #28A745);
+	color: white;
+}
+
+header h1 { font-size:2.5rem; }
+
+.btn {
+	background-color: #28A745;
+	color: white;
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 5px;
+	display: inline-block;
+	margin-top: 15px;
+}
+
+.btn:hover { background-color:#218838; }
+
+/* Features section  */
+.features {
+	display: flex;
+	justify-content: space-around;
+	padding: 50px;
+	background: white;
+}
+
+.feature {
+	display: inline-block;
+	width: 30%;
+	margin: 10px;
+	padding: 15px;
+	border-radius: 8px;
+	background: lightgreen;
+}
+
+.feature-box {
+	width: 30%;
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-box h3 { color:#007BFF; }
+
+/* Footer */
+footer {
+	text-align: center;
+	padding: 15px;
+	background-color: #0056b3;
+	color: white;
+}
+
+table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 8px;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\RealTimeLocation;
 use Illuminate\Http\Request;
+use App\Events\BusLocationUpdated;
+
 
 class RealTimeLocationController extends Controller
 {
@@ -15,8 +17,22 @@ class RealTimeLocationController extends Controller
 
     public function store(Request $request)
     {
-        $realTimeLocation = RealTimeLocation::create($request->all());
-        return response()->json($realTimeLocation, 201);
+
+
+        $location = RealTimeLocation::create($request->all());
+
+        // Broadcast the update
+        event(new BusLocationUpdated([
+            'bus_id' => $location->bus_id,
+            'latitude' => $location->latitude,
+            'longitude' => $location->longitude,
+            'timestamp' => $location->timestamp,
+            'speed' => $location->speed,
+            'direction' => $location->direction
+        ]));
+
+
+        return response()->json($location);
     }
 
     public function show(RealTimeLocation $realTimeLocation)

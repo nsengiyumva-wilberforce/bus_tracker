@@ -20,17 +20,27 @@
     @foreach ($buses as $bus)
         (function() {
             const busId = {{ $bus->id }};
-            const start = [{{ $bus->route->startingStation->latitude }}, {{ $bus->route->startingStation->longitude }}];
+            const start = [{{ $bus->route->startingStation->latitude }},
+                {{ $bus->route->startingStation->longitude }}
+            ];
             const end = [{{ $bus->route->endingStation->latitude }}, {{ $bus->route->endingStation->longitude }}];
 
+            //route control
             const routeControl = L.Routing.control({
                 waypoints: [L.latLng(start), L.latLng(end)],
                 show: false,
                 addWaypoints: false,
                 draggableWaypoints: false,
-                lineOptions: { styles: [{ color: '#3388ff', opacity: 0.7, weight: 5 }] }
+                lineOptions: {
+                    styles: [{
+                        color: '#3388ff',
+                        opacity: 0.7,
+                        weight: 5
+                    }]
+                }
             }).addTo(map);
 
+            //bus marker
             const busMarker = L.marker(start, {
                 icon: L.divIcon({
                     className: 'bus-marker',
@@ -39,16 +49,17 @@
                 })
             }).addTo(map).bindPopup('Loading route...');
 
+            //update the pop-up when it opens
             busMarker.on('popupopen', () => updateBusPopup(busId, busMarker, currentPosition));
 
             routeControl.on('routesfound', function(e) {
                 const route = e.routes[0];
                 const coordinates = route.coordinates;
                 const cumulativeDistances = [0];
-                
+
                 for (let i = 1; i < coordinates.length; i++) {
-                    cumulativeDistances.push(cumulativeDistances[i-1] + 
-                        L.latLng(coordinates[i-1]).distanceTo(L.latLng(coordinates[i])));
+                    cumulativeDistances.push(cumulativeDistances[i - 1] +
+                        L.latLng(coordinates[i - 1]).distanceTo(L.latLng(coordinates[i])));
                 }
 
                 // Segment the route into ~100m chunks with historical speeds
@@ -61,9 +72,9 @@
                     if (cumulativeDistances[i] - cumulativeDistances[currentStart] >= 100) {
                         segments.push({
                             startIndex: currentStart,
-                            endIndex: i-1,
+                            endIndex: i - 1,
                             startDistance: cumulativeDistances[currentStart],
-                            endDistance: cumulativeDistances[i-1],
+                            endDistance: cumulativeDistances[i - 1],
                             historicalSpeed: historicalSpeed
                         });
                         currentStart = i;
@@ -71,16 +82,16 @@
                 }
                 segments.push({
                     startIndex: currentStart,
-                    endIndex: cumulativeDistances.length-1,
+                    endIndex: cumulativeDistances.length - 1,
                     startDistance: cumulativeDistances[currentStart],
-                    endDistance: cumulativeDistances[cumulativeDistances.length-1],
+                    endDistance: cumulativeDistances[cumulativeDistances.length - 1],
                     historicalSpeed: historicalSpeed
                 });
 
                 busRoutes[busId] = {
                     coordinates,
                     cumulativeDistances,
-                    totalDistance: cumulativeDistances[cumulativeDistances.length-1],
+                    totalDistance: cumulativeDistances[cumulativeDistances.length - 1],
                     segments,
                     totalTime: route.summary.totalTime,
                     instructions: route.instructions
@@ -89,22 +100,24 @@
                 if (busMarker.isPopupOpen()) updateBusPopup(busId, busMarker, currentPosition);
             });
 
-            let currentPosition = 0, prevPosition = 0;
+            let currentPosition = 0,
+                prevPosition = 0;
             const previousETAs = {};
 
             setInterval(() => {
                 if (!busRoutes[busId]) return;
                 prevPosition = currentPosition;
                 currentPosition = (currentPosition + 1) % busRoutes[busId].coordinates.length;
-                
+
                 busMarker.setLatLng(busRoutes[busId].coordinates[currentPosition]);
                 if (busMarker.isPopupOpen()) updateBusPopup(busId, busMarker, currentPosition);
-                
-                if (currentPosition === busRoutes[busId].coordinates.length - 1 && !busRoutes[busId].notified) {
+
+                if (currentPosition === busRoutes[busId].coordinates.length - 1 && !busRoutes[busId]
+                    .notified) {
                     showBusArrivalNotification(busId);
                     busRoutes[busId].notified = true;
                 }
-            }, 10000);
+            }, 1000);
 
             function updateBusPopup(busId, marker, currentPos) {
                 const route = busRoutes[busId];
@@ -121,17 +134,17 @@
                 // Enhanced ETA calculation
                 let remainingTime = 0;
                 const currentDist = route.cumulativeDistances[currentPos];
-                const currentSegment = route.segments.find(s => 
+                const currentSegment = route.segments.find(s =>
                     currentDist >= s.startDistance && currentDist <= s.endDistance);
-                
+
                 if (currentSegment) {
                     const S_y = currentSegment.endDistance - currentDist;
                     const S_a = currentDist - currentSegment.startDistance;
                     const weightSum = S_y + S_a;
-                    const v_i = weightSum > 0 ? 
+                    const v_i = weightSum > 0 ?
                         (S_y * speedMps + S_a * currentSegment.historicalSpeed) / weightSum :
                         currentSegment.historicalSpeed;
-                    
+
                     remainingTime += S_y / v_i;
 
                     const segIndex = route.segments.indexOf(currentSegment);
@@ -168,7 +181,7 @@
             function getCurrentInstructionIndex(currentPos, instructions) {
                 for (let i = 0; i < instructions.length; i++) {
                     const instr = instructions[i];
-                    const nextStart = (i < instructions.length - 1) ? 
+                    const nextStart = (i < instructions.length - 1) ?
                         instructions[i + 1].index : Infinity;
                     if (currentPos >= instr.index && currentPos < nextStart) return i;
                 }
@@ -191,11 +204,13 @@
     .direction-step {
         padding: 4px 8px;
     }
+
     .direction-step.current-step {
         background-color: #e0f0ff;
         font-weight: bold;
         border-left: 3px solid #3388ff;
     }
+
     .metrics div {
         margin: 4px 0;
     }
