@@ -627,42 +627,7 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="{{ asset('images/logo1.png') }}" alt="BusPulse Logo">
-                <div class="logo-text">Bus<span>Pulse</span></div>
-            </div>
-            
-            <div class="mobile-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            
-            <nav class="nav-menu">
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Contact</a>
-                
-                <!-- Authentication State -->
-                <div id="auth-state">
-                    @auth
-                        <a href="{{ route('booking') }}">Booking</a>
-                        <a href="{{ route('tracking.index') }}">Tracking</a>
-                        <a href="#">Stations</a>
-                        <a href="{{ route('routes.index') }}">Routes</a>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                           class="btn">Logout</a>
-                    @else
-                        <a href="{{ route('login') }}" class="btn">Login</a>
-                        <a href="{{ url('/register') }}" class="btn" style="background-color: var(--primary); color: white;">Sign Up</a>
-                    @endauth
-                </div>
-            </nav>
-        </div>
-    </header>
+@include('header')
 
     <!-- Main Content -->
     <main>
@@ -724,9 +689,9 @@
                         <h1>Welcome back, {{ auth()->user()->first_name }}!</h1>
                         <p>Access your bookings and track your buses in real-time.</p>
                         <div class="hero-nav">
-                            <a href="#" class="btn btn-primary">My Bookings</a>
-                            <a href="{{ route('tracking.index') }}" class="btn btn-secondary">Live Tracking</a>
-                            <a href="#" class="btn btn-secondary">Stations</a>
+                            <a href="{{ route('booking-history') }}" class="btn btn-primary">My Bookings</a>
+                            <a href="{{ route('tracking') }}" class="btn btn-secondary">Live Tracking</a>
+                            <a href="{{ route('stations') }}" class="btn btn-secondary">Stations</a>
                         </div>
                     @else
                         <h1>Welcome to BusPulse</h1>
@@ -802,7 +767,7 @@
                         <div class="dashboard-card">
                             <h3>Bus Routes</h3>
                             <p>Discover all available routes and plan your journey.</p>
-                            <a href="{{ route('routes.index') }}" class="btn">View Routes</a>
+                            <a href="{{ route('routes') }}" class="btn">View Routes</a>
                         </div>
                     </div>
                 </div>

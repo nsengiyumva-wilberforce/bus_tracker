@@ -63,4 +63,9 @@ class User extends Authenticatable
             ? asset('storage/' . $this->profile_picture)
             : asset('assets/img/default-avatar.jfif');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Book::class);
+    }
 }

@@ -15,17 +15,21 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BusController as ControllersBusController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportsController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Bus;
 
 Route::view('/', 'home')->name('home');
 Route::get('/booking', [BookController::class, 'booking_ticket'])->name('booking');
-
-Route::get('/dashboard', function () {
-    $buses = Bus::get();
-    $routes = \App\Models\Route::get();
-    return view('pages.dashboard', compact('buses', 'routes'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/manage-bookings', [BookController::class, 'manage_bookings'])->name('manage.bookings');
+Route::get('/booking-history', [BookController::class, 'my_history'])->name('booking-history');
+Route::post('/booking', [BookController::class, 'book_store'])->name('bookings.store');
+Route::get('/bus-tracking', [ControllersBusController::class, 'tracking'])->name('tracking');
+Route::get('/bus-routes', [ControllersBusController::class, 'bus_routes'])->name('routes');
+Route::get('/bus-stations', [ControllersBusController::class, 'bus_stations'])->name('stations');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::get('/tables', function () {
     return view('pages.table');
@@ -47,8 +51,8 @@ Route::resource('users', UsersController::class);
 
 Route::resource('drivers', StaffController::class);
 
-Route::resource('reports', ReportController::class);
-
+Route::get('/reports', [ReportsController::class, 'index'])->name('reports.index');
+Route::get('/reports/export', [ReportsController::class, 'export'])->name('reports.export');
 Route::resource('bus-stops', BusStopController::class);
 
 Route::resource('admins', AdminController::class);

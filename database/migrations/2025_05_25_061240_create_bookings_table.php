@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('route_id')->constrained();
             $table->foreignId('bus_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->dateTime('departure_time');
             $table->decimal('price', 8, 2);
             $table->enum('status', ['scheduled', 'boarding', 'departed', 'arrived', 'cancelled'])->default('scheduled');
