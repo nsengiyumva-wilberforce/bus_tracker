@@ -21,16 +21,6 @@ class RealTimeLocationController extends Controller
 
         $location = RealTimeLocation::create($request->all());
 
-        // Broadcast the update
-        event(new BusLocationUpdated([
-            'bus_id' => $location->bus_id,
-            'latitude' => $location->latitude,
-            'longitude' => $location->longitude,
-            'timestamp' => $location->timestamp,
-            'speed' => $location->speed,
-            'direction' => $location->direction
-        ]));
-
 
         return response()->json($location);
     }

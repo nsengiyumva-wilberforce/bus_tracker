@@ -17,4 +17,9 @@ class Bus extends Model
     {
         return $this->hasMany(RealTimeLocation::class);
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Book::class);
+    }
 }

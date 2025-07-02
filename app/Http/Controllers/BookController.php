@@ -8,6 +8,8 @@ use App\Models\Bus;
 use App\Models\BusStop;
 use App\Models\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class BookController extends Controller
 {
@@ -121,11 +123,56 @@ class BookController extends Controller
 
     public function booking_ticket()
     {
-       
+
         $routes = Route::with(['startingStation', 'endingStation'])->get();
         $busStops = BusStop::all();
         $buses = Bus::all();
 
         return view('booking', compact('routes', 'busStops', 'buses'));
     }
+
+
+    public function book_store(Request $request)
+    {
+        $request->validate([
+            'route_id' => 'required|exists:routes,id',
+            'bus_id' => 'required|exists:buses,id',
+            'departure_time' => 'required|string',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        Book::create([
+            'user_id' => Auth::id(), // 👈 Capture the logged-in user's ID
+            'route_id' => $request->route_id,
+            'bus_id' => $request->bus_id,
+            'departure_time' => $request->departure_time,
+            'price' => $request->price,
+            'status' => 'scheduled',
+        ]);
+
+        return redirect()->back()->with('success', 'Booking successful!');
+    }
+
+        public function my_history()
+    {
+        // Get the authenticated user's bookings with related route and bus data
+        $bookings = Auth::user()->bookings()
+            ->with(['route', 'bus'])
+            ->orderBy('departure_time', 'desc')
+            ->get();
+
+        return view('my-bookings', compact('bookings'));
+    }
+
+    public function manage_bookings()
+    {
+        // Get all bookings with related user, route, and bus data
+        $bookings = Book::with(['user', 'route', 'bus'])
+            ->orderBy('departure_time', 'desc')
+            ->paginate(10);
+            
+
+        return view('manage-bookings', compact('bookings'));
+    }
+
 }

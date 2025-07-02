@@ -12,6 +12,9 @@
         "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
+        "react/child-process": "0.6.6",
+        "react/datagram": "^1.10",
+        "react/event-loop": "^1.5",
         "spatie/laravel-permission": "^6.18"
     },
     "require-dev": {

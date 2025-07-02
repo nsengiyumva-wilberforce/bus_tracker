@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if ($user && $user->hasRole('staff')) {
+        if ($user && $user->hasRole('commuter')) {
             // Redirect staff users to an external site
             return redirect()->route('home');
         }

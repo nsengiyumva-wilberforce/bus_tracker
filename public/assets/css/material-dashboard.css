@@ -24617,16 +24617,6 @@ hr.horizontal.gray-light {
   transform: translate(0, -50%);
 }
 
-@media (min-width: 992px) {
-  .virtual-reality .sidenav {
-    animation-name: fadeInBottom;
-    animation-fill-mode: both;
-    animation-duration: 1.5s;
-    transform: scale(0.6);
-    left: 18% !important;
-    position: absolute;
-  }
-}
 
 .choices .choices__list {
   background: no-repeat bottom, 50% calc(100% - 1px);
