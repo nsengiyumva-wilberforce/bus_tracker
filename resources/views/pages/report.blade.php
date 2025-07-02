@@ -263,7 +263,11 @@
                                             <span class="badge badge-sm bg-gradient-success">{{ $route->bookings_count }}</span>
                                         </td>
                                         <td class="align-middle text-center">
+<<<<<<< HEAD
                                             <span class="text-sm font-weight-bold">UGX {{ number_format($route->bookings->sum('price'), 2) }}</span>
+=======
+                                            <span class="text-sm font-weight-bold">${{ number_format($route->bookings->sum('price'), 2) }}</span>
+>>>>>>> d1a426b5431dae5359f2500a4df977d96d0bb2ed
                                         </td>
                                     </tr>
                                     @endforeach
