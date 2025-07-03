@@ -385,7 +385,7 @@
 
                         <div class="form-group">
                             <label for="price">Ticket Price (UGX) <span class="required">*</span></label>
-                            <input type="number" name="price" id="price" step="0.01" class="form-control @error('price') is-invalid @enderror" 
+                            <input type="hidden" name="price" id="price" step="0.01" class="form-control @error('price') is-invalid @enderror" 
                                    value="3000" required placeholder="Enter ticket price" readonly>
                             @error('price')
                                 <span class="error-message">{{ $message }}</span>
