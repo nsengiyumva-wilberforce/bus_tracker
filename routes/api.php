@@ -18,6 +18,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 // Protecting resources using Sanctum
 Route::apiResource('users', UsersController::class);
+Route::post('/register-your-account', [UsersController::class, 'register']);
+Route::post('/login', [UsersController::class, 'login']);
 Route::apiResource('admins', AdminController::class);
 Route::apiResource('buses', BusController::class);
 Route::apiResource('routes', RouteController::class);
